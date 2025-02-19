@@ -75,3 +75,6 @@ router.get('/category/:id', async (req, res) => {
 })
 
 module.exports = router;
+
+
+// Learn concept of virtual id.
