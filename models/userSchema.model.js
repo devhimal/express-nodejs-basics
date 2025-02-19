@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 
 
-const userSchemas = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -16,7 +16,8 @@ const userSchemas = new mongoose.Schema({
   },
   phone: {
     type: Number,
-    required: true
+    required: true,
+    default: null
   },
   street: {
     type: String,
@@ -34,7 +35,7 @@ const userSchemas = new mongoose.Schema({
   },
   zip: {
     type: Number,
-    default: ''
+    default: null
   },
   country: {
     type: String,
@@ -43,21 +44,21 @@ const userSchemas = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    required: true
+    required: true,
+    default: false
   }
 
 })
 
 
 // Virtualizing the user id, to use _id as normal id.
-userSchemas.virtual('id').get(function () {
+userSchema.virtual('id').get(function () {
   return this._id.toHexString();
 })
 
-userSchemas.set('toJSON', {
+userSchema.set('toJSON', {
   virtuals: true
 })
 
-
-exports.User = mongoose.model('Users', userSchemas)
-exports.userSchemas = userSchema
+const User = mongoose.model('User', userSchema)
+module.exports = User
