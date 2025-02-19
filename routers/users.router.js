@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema.model")
-const mongoose = require("mongoose")
-
+const bcrypt = require("bcryptjs")
 // GET - Fetch all users
 router.get("", async (req, res) => {
   try {
@@ -31,7 +30,7 @@ router.post("", async (req, res) => {
     let user = new User({
       name: req.body.name,
       email: req.body.email,
-      passwordHash: req.body.passwordHash,
+      passwordHash: bcrypt.hashSync(req.body.password, 10),
       phone: req.body.phone,
       street: req.body.street,
       apartment: req.body.apartment,
