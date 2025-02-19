@@ -2,10 +2,11 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/userSchema.model")
 const bcrypt = require("bcryptjs")
+const mongoose = require('mongoose')
 // GET - Fetch all users
 router.get("", async (req, res) => {
   try {
-    const userList = await User.find(); // Fetch user list
+    const userList = await User.find().select('-passwordHash'); // Fetch user list or incase if we need to fetch only name, email, or any collection fields we can pass name, email. phone without adding - sign.
 
     if (!userList || userList.length === 0) {
       return res.status(404).json({
@@ -123,6 +124,20 @@ router.delete('/:id', async (req, res) => {
       message: "Internal server error",
       success: false
     })
+  })
+})
+
+
+// GET SINGLE USER
+router.get("/:id", async (req, res) => {
+  // this line will validate if the user with id is available or not before proceeding to further.
+  if (!mongoose.isValidObjectId(req.params.id)) {
+    res.status(500).json({ message: "Invalid user id while geting the single user." })
+  }
+  const user = await User.findById(req.params.id).select('-passwordHash')
+  res.status(200).json({
+    message: "You have successfull fetched user data: ",
+    user
   })
 })
 
