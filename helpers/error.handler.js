@@ -5,14 +5,14 @@ function errorHandler(err, req, res, next) {
   // for authentication and permission error you could write it here, just by 
   // checking if err.name ==  "AuthorizationError"
   if (err.name == "UnauthorizedError") {
-    return res.status(500).json({
+    res.status(500).json({
       message: "You are not authorized to access it.",
       error: err
     })
   }
   else {
-    return next(res.status(500).json({
-      message: "Server error",
+    next(res.status(500).json({
+      message: "Main server error",
       error: err
     }))
   }

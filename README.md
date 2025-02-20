@@ -28,4 +28,8 @@ Resources: https://dev.to/rhuzaifa/top-5-node-express-boilerplates-for-building-
 
 
 <!-- Commit Message -->
-<!-- Adding more secrete user information to token -->
+<!-- Adding roles for users to distinguish it from general users and admin -->
+
+
+### Notes
+schema should be inside models folder, router entry point should be inside routers folder, all the logic should in the files that are inside services folder. we can use helpers folder for some helper functions like error handling, authentication handling which could be replace by config folder for more meaningful folder name and business logic.
