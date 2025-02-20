@@ -1,11 +1,19 @@
-// router/categoryRouter.js
+// MVC pattern
+// Route groups
+// Service pattern
+// Repository pattern
+// User roles
+// Working with files
+// Rate limiting
+// Relational Databases
+// OAuth
+// Resources: https://dev.to/rhuzaifa/top-5-node-express-boilerplates-for-building-restful-api-s-1ehl
 
-const express = require('express');
-const router = express.Router();
+const router = require("../router")
 const Category = require('../models/categorySchema.model'); // Import Category model
 
 // GET - Fetch all categories
-router.get('/category', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.find();
     if (!categories || categories.length === 0) {
@@ -18,7 +26,7 @@ router.get('/category', async (req, res) => {
 });
 
 // POST - Create a new category
-router.post('/category', async (req, res) => {
+router.post('', async (req, res) => {
   try {
     const category = new Category({
       name: req.body.name,
@@ -34,7 +42,7 @@ router.post('/category', async (req, res) => {
 });
 
 // UPDATE - Updating the data
-router.put('/category/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   const category = await Category.findByIdAndUpdate(req.params.id, {
     name: req.body.name,
     icon: req.body.icon,
@@ -49,7 +57,7 @@ router.put('/category/:id', async (req, res) => {
 })
 
 // DELETE - Delete a category
-router.delete('/category/:id', (req, res) => {
+router.delete('/:id', (req, res) => {
   Category.findByIdAndDelete(req.params.id).then(category => {
     if (category) {
       return res.status(200).json({ success: true, message: "category is deleted" })
@@ -65,7 +73,7 @@ router.delete('/category/:id', (req, res) => {
 })
 
 // GET ONE CATEGORY 
-router.get('/category/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   const category = await Category.findById(req.params.id)
   if (!category) {
     res.status(500).json({ message: `there is no category for ${id} id.`, success: false })
@@ -75,3 +83,6 @@ router.get('/category/:id', async (req, res) => {
 })
 
 module.exports = router;
+
+
+// Learn concept of virtual id.
