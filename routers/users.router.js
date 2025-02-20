@@ -156,7 +156,7 @@ router.post('/login', async (req, res) => {
 
   if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
     const token = jwt.sign(
-      { userId: user.id },
+      { userId: user._id, isAdmin: user.isAdmin },
       secret,// this could be any string like test, himal, ....
       {
         expiresIn: '1d' //expiration time, 1w, 2d, 5d

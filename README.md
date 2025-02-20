@@ -25,3 +25,7 @@ Rate limiting
 Relational Databases
 OAuth
 Resources: https://dev.to/rhuzaifa/top-5-node-express-boilerplates-for-building-restful-api-s-1ehl
+
+
+<!-- Commit Message -->
+<!-- Adding more secrete user information to token -->
