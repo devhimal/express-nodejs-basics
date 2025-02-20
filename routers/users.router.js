@@ -3,8 +3,11 @@ const router = express.Router();
 const User = require("../models/userSchema.model")
 const bcrypt = require("bcryptjs")
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+
+
 // GET - Fetch all users
-router.get("", async (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
     const userList = await User.find().select('-passwordHash'); // Fetch user list or incase if we need to fetch only name, email, or any collection fields we can pass name, email. phone without adding - sign.
 
@@ -16,6 +19,7 @@ router.get("", async (req, res) => {
     }
 
     res.status(200).json(userList);
+    next()
   } catch (error) {
     res.status(500).json({
       error: "Internal server error while fetching users",
@@ -26,7 +30,7 @@ router.get("", async (req, res) => {
 });
 
 // POST - Create a new user
-router.post("", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     let user = new User({
       name: req.body.name,
@@ -139,6 +143,31 @@ router.get("/:id", async (req, res) => {
     message: "You have successfull fetched user data: ",
     user
   })
+})
+
+
+// USER LOGIN
+router.post('/login', async (req, res) => {
+  const user = await User.findOne({ email: req.body.email })
+  const secret = process.env.SECRET_KEY
+  if (!user) {
+    res.status(404).json({ message: "No user found for the given email address.", success: false })
+  }
+
+  if (user && bcrypt.compareSync(req.body.password, user.passwordHash)) {
+    const token = jwt.sign(
+      { userId: user.id },
+      secret,// this could be any string like test, himal, ....
+      {
+        expiresIn: '1d' //expiration time, 1w, 2d, 5d
+      }
+    ) // generating jwt webtoken based on userid and secret-key word.
+    res.status(200).send({ email: user.email, token: token })
+
+  } else {
+    res.status(400).send("Password is wrong/not matched.")
+  }
+
 })
 
 module.exports = router; 

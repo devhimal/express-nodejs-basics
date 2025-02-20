@@ -5,18 +5,21 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const mongodb = process.env.MONGODB_CONNECTION_STRING;
+const authJwt = require("./helpers/jwt")
 
 const productRouter = require("./routers/product.router")
 const categoryRouter = require("./routers/category.router")
 const userRouter = require("./routers/users.router")
 
+
 // Middleware
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
+app.use(authJwt())
 
 // Routes
 app.use('/api/products', productRouter);
-app.use('/api/products', categoryRouter);
+app.use('/api/categories', categoryRouter);
 app.use('/api/users', userRouter)
 
 // Connect to MongoDB

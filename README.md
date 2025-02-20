@@ -12,3 +12,16 @@
 - Authentication error handling
 - Add more secret user information to token: diffenciate the information between user and admin
 - Get user count rest api
+
+### Resources and terms that i have followed
+
+MVC pattern
+Route groups
+Service pattern
+Repository pattern
+User roles
+Working with files
+Rate limiting
+Relational Databases
+OAuth
+Resources: https://dev.to/rhuzaifa/top-5-node-express-boilerplates-for-building-restful-api-s-1ehl

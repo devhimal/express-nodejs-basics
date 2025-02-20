@@ -1,7 +1,15 @@
-// router/categoryRouter.js
+// MVC pattern
+// Route groups
+// Service pattern
+// Repository pattern
+// User roles
+// Working with files
+// Rate limiting
+// Relational Databases
+// OAuth
+// Resources: https://dev.to/rhuzaifa/top-5-node-express-boilerplates-for-building-restful-api-s-1ehl
 
-const express = require('express');
-const router = express.Router();
+const router = require("../router")
 const Category = require('../models/categorySchema.model'); // Import Category model
 
 // GET - Fetch all categories
