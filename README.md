@@ -4,17 +4,7 @@
 ### User Authentication System
 This is a simple authentication system that allows users to register, log in, and manage their profiles. It also includes role-based access, ensuring that only admins can perform certain actions, like adding or deleting products.
 
-### Features
-User registration
-User login with JWT
-Password hashing
-Admin-only access to certain routes (e.g., adding products)
-Profile management (view and update)
-Get user count API
 
-
-### Conclusion
-This system allows for user registration and login using JWT tokens. Admin users can perform special actions, while regular users have access to basic functionality. The system is simple and secure for managing user authentication and role-based access.
 
 <!-- ### Resources and terms that i have followed
 
